@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABSP Computer Sales</title>
+    <style>
+        /* Reset some default styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.pcworld.com/wp-content/uploads/2022/08/dell-dual-monitors.jpg?quality=50&strip=all') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        /* Sticky Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(51, 51, 51, 0.9);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .offer {
+            background-color: #ffeb3b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .offer h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .giphy-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .giphy-container iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .contact {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .contact h3 {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .btn:hover, .btn:focus {
+            background-color: #218838;
+        }
+
+        .product {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+            color: #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .product p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .product .order-btn {
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+
+        .pdf-link, .social-link, .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pdf-link a, .social-link a, .footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .pdf-link a:hover, .social-link a:hover, .footer a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .pdf-link img {
+            width: 30px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .feedback {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .feedback h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feedback form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .feedback input[type="text"],
+        .feedback input[type="email"],
+        .feedback textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .feedback textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .feedback .rating {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .feedback .rating input {
+            display: none;
+        }
+
+        .feedback .rating label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .feedback .rating input:checked ~ label,
+        .feedback .rating label:hover,
+        .feedback .rating label:hover ~ label {
+            color: #ffca28;
+        }
+
+        .feedback .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .feedback .submit-btn:hover,
+        .feedback .submit-btn:focus {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: rgba(51, 51, 51, 0.9);
+            padding: 20px 0;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Responsive Layouts */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .product {
+                padding: 10px;
+            }
+
+            .product h3 {
+                font-size: 1.1rem;
+            }
+
+            .product p {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.95rem;
+            }
+
+            .feedback form {
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 6px 10px;
+            }
+
+            .product h3 {
+                font-size: 1rem;
+            }
+
+            .product p {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .feedback h3 {
+                font-size: 1.2rem;
+            }
+
+            .feedback .submit-btn {
+                font-size: 1rem;
+                padding: 10px;
+            }
+
+            .rating label {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script>
+        function handleOrder(product, price) {
+            const waLink = `https://wa.me/919821692445?text=Order%20Details:%0AProduct:%20${encodeURIComponent(product)}%0APrice:%20₹${encodeURIComponent(price)}`;
+            window.open(waLink, '_blank');
+        }
+
+        function sendFeedback(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            const name = document.getElementById('feedback-name').value.trim();
+            const email = document.getElementById('feedback-email').value.trim();
+            const message = document.getElementById('feedback-message').value.trim();
+            const rating = document.querySelector('input[name="rating"]:checked')?.value || 'No rating';
+
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Simple email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const waLink = `https://wa.me/919821692445?text=Feedback%20from:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0AMessage:%20${encodeURIComponent(message)}%0ARating:%20${encodeURIComponent(rating)}`;
+
+            window.open(waLink, '_blank');
+
+            // Show confirmation message
+            alert('Thank you for your feedback!');
+            // Optionally, reset the form
+            document.getElementById('feedback-form').reset();
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home" aria-label="Home">Home</a></li>
+            <li><a href="#products" aria-label="Products">Products</a></li>
+            <li><a href="#offers" aria-label="Offers">Offers</a></li>
+            <li><a href="#contact" aria-label="Contact Us">Contact Us</a></li>
+            <li><a href="#feedback" aria-label="Feedback">Feedback</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="home">
+        <h1>ABSP Computer Sales</h1>
+        <p>Find your perfect computer at affordable prices!</p>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Offer Section -->
+        <section class="offer" id="offers">
+            <h2>🎄 Christmas Special Offer! 🎄</h2>
+            <p>Enjoy exclusive discounts on all products until 31st December!</p>
+            <p>Participate in our lucky draw and stand a chance to win a brand-new PC set!</p>
+            <p><strong>Hurry up! Offer valid till 31st December only.</strong></p>
+        </section>
+
+        <!-- GIPHY Integration -->
+        <div class="giphy-container">
+            <iframe src="https://giphy.com/embed/STLo0ziuF573D7CRXR" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen title="Christmas GIF"></iframe>
+            <p><a href="https://giphy.com/clips/BournemouthUniversity-christmas-holiday-tree-STLo0ziuF573D7CRXR">via GIPHY</a></p>
+        </div>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <h3>Contact Us for Orders</h3>
+            <p>Phone: +91 76671 50794</p>
+            <p>WhatsApp: <a href="https://wa.me/919821692445" class="btn" aria-label="WhatsApp Number">+91 98216 92445</a></p>
+            <p>Email: <a href="mailto:absp.sales@gmail.com" aria-label="Email Address">absp.sales@gmail.com</a></p>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products">
+            <h2>Our Products</h2>
+            <!-- Product 1 -->
+            <div class="product">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2021/1/AP/NM/QE/78433141/desktop-computer-500x500.jpeg" alt="i3 3rd Gen - 128GB SSD - 4GB RAM - 15&quot; Screen">
+                <h3>i3 3rd Gen - 128GB SSD - 4GB RAM - 15" Screen</h3>
+                <p>Price: ₹12,030.00</p>
+                <button onclick="handleOrder('i3 3rd Gen - 128GB SSD - 4GB RAM', '12030')" class="btn order-btn" aria-label="Order i3 3rd Gen">Order Now</button>
+            </div>
+            <!-- Product 2 -->
+            <div class="product">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2023/12/369141892/MZ/BY/DF/25338970/desktop-computer-zebronics-i3-2nd-gen-4gb-ram-320-gb-hdd-brand-new-500x500.jpg" alt="i3 3rd Gen - 256GB SSD - 8GB RAM - 15&quot; Screen">
+                <h3>i3 3rd Gen - 256GB SSD - 8GB RAM - 15" Screen</h3>
+                <p>Price: ₹12,918.00</p>
+                <button onclick="handleOrder('i3 3rd Gen - 256GB SSD - 8GB RAM', '12918')" class="btn order-btn" aria-label="Order i3 3rd Gen with 256GB SSD">Order Now</button>
+            </div>
+            <!-- Product 3 -->
+            <div class="product">
+                <img src="https://rukminim2.flixcart.com/image/416/416/xif0q/desktop-computer/l/2/v/0-zeb256-zebronics-original-imahfcc5qqcbpggh.jpeg?q=70&crop=false" alt="i3 4th Gen - 128GB SSD - 4GB RAM - 15&quot; Screen">
+                <h3>i3 4th Gen - 128GB SSD - 4GB RAM - 15" Screen</h3>
+                <p>Price: ₹13,248.00</p>
+                <button onclick="handleOrder('i3 4th Gen - 128GB SSD - 4GB RAM', '13248')" class="btn order-btn" aria-label="Order i3 4th Gen">Order Now</button>
+            </div>
+            <!-- Product 4 -->
+            <div class="product">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.6WhNQXn1fyU7BYe4wq7i8wAAAA&pid=Api&P=0&h=220" alt="i3 4th Gen - 256GB SSD - 8GB RAM - 15&quot; Screen">
+                <h3>i3 4th Gen - 256GB SSD - 8GB RAM - 15" Screen</h3>
+                <p>Price: ₹14,136.00</p>
+                <button onclick="handleOrder('i3 4th Gen - 256GB SSD - 8GB RAM', '14136')" class="btn order-btn" aria-label="Order i3 4th Gen with 256GB SSD">Order Now</button>
+            </div>
+            <!-- Product 5 -->
+            <div class="product">
+                <img src="https://m.media-amazon.com/images/I/615JUk3q2aS._AC_SS450_.jpg" alt="i5 6th Gen - 128GB SSD - 4GB RAM - 22&quot; Screen">
+                <h3>i5 6th Gen - 128GB SSD - 4GB RAM - 22" Screen</h3>
+                <p>Price: ₹21,557.00</p>
+                <button onclick="handleOrder('i5 6th Gen - 128GB SSD - 4GB RAM', '21557')" class="btn order-btn" aria-label="Order i5 6th Gen">Order Now</button>
+            </div>
+            <!-- Product 6 -->
+            <div class="product">
+                <img src="https://5.imimg.com/data5/ANDROID/Default/2022/10/WR/NF/MN/98454540/product-jpeg-1000x1000.jpg" alt="i5 6th Gen - 256GB SSD - 8GB RAM - 22&quot; Screen">
+                <h3>i5 6th Gen - 256GB SSD - 8GB RAM - 22" Screen</h3>
+                <p>Price: ₹22,445.00</p>
+                <button onclick="handleOrder('i5 6th Gen - 256GB SSD - 8GB RAM', '22445')" class="btn order-btn" aria-label="Order i5 6th Gen with 256GB SSD">Order Now</button>
+            </div>
+            <!-- Product 7 -->
+            <div class="product">
+                <img src="https://images-eu.ssl-images-amazon.com/images/G/02/uk-electronics/product_content/HP/CompaqQ42011/Get-the-complete-package._V163679618_.jpg" alt="i7 8th Gen - 256GB SSD - 8GB RAM - 22&quot; Screen">
+                <h3>i7 8th Gen - 256GB SSD - 8GB RAM - 22" Screen</h3>
+                <p>Price: ₹33,755.00</p>
+                <button onclick="handleOrder('i7 8th Gen - 256GB SSD - 8GB RAM', '33755')" class="btn order-btn" aria-label="Order i7 8th Gen">Order Now</button>
+            </div>
+        </section>
+
+        <!-- Download PDF Link -->
+        <div class="pdf-link">
+            <p>📄 <img src="https://1.bp.blogspot.com/_Px_El909rS4/SVfmPPtz5MI/AAAAAAAAAv4/goc-zs7H9ns/s1600/download.icon" alt="Download Icon"> <a href="/mnt/data/absp%20sales%20student%20price%20(3).pdf" target="_blank" aria-label="Download Full Product Details">Download Full Product Details</a></p>
+        </div>
+
+        <!-- Social Media Link -->
+        <div class="social-link">
+            <p>📸 Follow us on Instagram: <a href="https://www.instagram.com/absp_computer/" target="_blank" aria-label="Follow us on Instagram">@absp_computer</a></p>
+        </div>
+
+        <!-- Feedback Section -->
+        <section class="feedback" id="feedback">
+            <h3>Feedback</h3>
+            <form id="feedback-form" onsubmit="sendFeedback(event)" aria-label="Feedback Form">
+                <input type="text" id="feedback-name" class="form-control" placeholder="Full Name" required aria-required="true" aria-label="Full Name">
+                <input type="email" id="feedback-email" class="form-control" placeholder="Email Address" required aria-required="true" aria-label="Email Address">
+                <textarea id="feedback-message" placeholder="Your Message" class="form-control" rows="5" required aria-required="true" aria-label="Your Message"></textarea>
+                <div class="rating">
+                    <h4>Rate Us</h4>
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5" title="5 stars">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4" title="4 stars">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3" title="3 stars">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2" title="2 stars">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1" title="1 star">&#9733;</label>
+                </div>
+                <button type="submit" class="submit-btn btn" aria-label="Submit Feedback">Submit Feedback</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2024 ABSP Computer Sales. All rights reserved.</p>
+        <p><a href="#home" aria-label="Back to Home">Back to Home</a> | <a href="/privacy-policy.html" target="_blank" aria-label="Privacy Policy">Privacy Policy</a> | <a href="/terms-of-service.html" target="_blank" aria-label="Terms of Service">Terms of Service</a></p>
+    </footer>
+</body>
+</html>
